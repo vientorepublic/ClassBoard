@@ -9,17 +9,26 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
+    "bcrypt": "^5.1.0",
     "consola": "^3.1.0",
     "cookie-parser": "^1.4.6",
     "core-js": "^3.25.3",
     "cors": "^2.8.5",
+    "dayjs": "^1.11.8",
+    "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "express-asyncify": "^1.1.0",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^7.3.0",
+    "morgan": "^1.10.0",
     "nuxt": "^2.15.8",
+    "request-ip": "^3.3.0",
     "vue": "^2.7.10",
     "vue-server-renderer": "^2.7.10",
     "vue-template-compiler": "^2.7.10",
-    "vuetify": "^2.6.10"
+    "vuetify": "^2.6.10",
+    "winston": "^3.9.0",
+    "winston-daily-rotate-file": "^4.7.1"
   },
   "devDependencies": {
     "@nuxtjs/vuetify": "^1.12.3"
