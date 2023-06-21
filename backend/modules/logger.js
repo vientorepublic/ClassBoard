@@ -20,7 +20,7 @@ export const logger = winston.createLogger({
             level: 'info',
             datePattern: 'YYYYMMDD',
             dirname: './logs',
-            filename: `VientoEngine_%DATE%.log`,
+            filename: `%DATE%.log`,
             maxSize: null,
             maxFiles: 14
         }),

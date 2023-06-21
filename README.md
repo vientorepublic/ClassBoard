@@ -6,6 +6,8 @@
 ```env
 MONGODB_URL="Mongodb 서버 주소"
 
+BACKEND_HOST="CORS에 적용할 백엔드 서버 주소"
+
 JWT_SECRET="JWT 서명 시크릿키"
 JWT_ISSUER="JWT 서명 주체"
 JWT_EXPIRES_IN="액세스 토큰 만료 시간"
