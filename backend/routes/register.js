@@ -16,13 +16,14 @@ const util = new utils();
 const create = new createToken();
 
 
-router.get('/', async(req, res) => {
+router.post('/', async (req, res) => {
     try {
         const id = req.body.id;
         const password = req.body.password;
+        const email = req.body.email;
         const now = dayjs().valueOf();
 
-        if (id === '' || id === undefined || password === '' || password === undefined) {
+        if (id === '' || id === undefined || password === '' || password === undefined || email === '' || email === undefined) {
             return res.status(400).json({
                 code: 400,
                 message: 'Parameter is not valid.'
@@ -43,18 +44,33 @@ router.get('/', async(req, res) => {
             });
         }
 
-        const check = await userSchema.findOne({ id: id });
-        if (check) {
+        if (!util.validateMail(email)) {
+            return res.status(400).json({
+                code: 400,
+                message: '이메일 형식이 잘못되었습니다.'
+            });
+        }
+
+        const checkId = await userSchema.findOne({ id: id });
+        const checkEmail = await userSchema.findOne({ email: email });
+        if (checkId) {
             return res.status(400).json({
                 code: 400,
                 message: '해당 ID가 이미 사용중 입니다.'
             });
         }
+        if (checkEmail) {
+            return res.status(400).json({
+                code: 400,
+                message: '해당 이메일 주소가 이미 사용중 입니다.'
+            });
+        }
 
-        const encrypted = new hash(password).encrypt();
+        const encrypted = await new hash(password).encrypt();
         const data = new userSchema({
             id: id,
             password: encrypted,
+            email: email,
             createdAt: now
         });
 
@@ -63,7 +79,8 @@ router.get('/', async(req, res) => {
                 code: 200,
                 message: '회원가입이 완료되었습니다.'
             });
-        }).catch((_err) => {
+        }).catch((err) => {
+            error(err);
             return res.status(500).json({
                 code: 500,
                 message: 'An error occurred while processing your request. (Save Failed)'
